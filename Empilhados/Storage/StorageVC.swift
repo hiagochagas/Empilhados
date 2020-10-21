@@ -71,6 +71,13 @@ class StorageVC: UIViewController, RefreshDataFromTableDelegate, UpdateDataFromP
         fetchProducts()
     }
     
+    func updateImage(_ indexPath: IndexPath, image: UIImage) {
+        let updatedProduct = products![indexPath.row]
+        updatedProduct.image = image.pngData()
+        saveContext()
+        fetchProducts()
+    }
+    
     func saveContext() {
         do {
             try self.context.save()
@@ -105,6 +112,7 @@ extension StorageVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath) as! ProductTableViewCell
             cell.productName.text = product.name
             cell.productQuantity.text = "Quantidade disponível: \(String(product.quantity))"
+            cell.productImage.image = UIImage(data: product.image!)
         return cell
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -125,6 +133,7 @@ extension StorageVC: UITableViewDelegate, UITableViewDataSource {
             vc.editProductView.productQuantityTextField.text = String(describing: product.quantity)
             vc.editProductView.productBuyPriceTextField.text = String(describing: product.buyPrice ?? 0)
             vc.editProductView.productSellPriceTextField.text = String(describing: product.sellPrice ?? 0)
+            vc.editProductView.productImage.image = UIImage(data: product.image!)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

@@ -22,12 +22,23 @@ class AddProductToStorageView: UIView {
     
     var productImage: UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(named: "standardProduct")
-        img.heightAnchor.constraint(equalToConstant: 110).isActive = true
-        img.layer.cornerRadius = 55
-        img.layer.masksToBounds = true
-        img.widthAnchor.constraint(equalTo: img.heightAnchor).isActive = true
+            img.image = UIImage(named: "standardProduct")
+            img.heightAnchor.constraint(equalToConstant: 110).isActive = true
+            img.layer.cornerRadius = 55
+            img.layer.masksToBounds = true
+            img.widthAnchor.constraint(equalTo: img.heightAnchor).isActive = true
         return img
+    }()
+    
+    var productImageButton: UIButton = {
+        let btn = UIButton()
+            btn.setImage(UIImage(systemName: "camera.fill"), for: .normal)
+            btn.backgroundColor = .black
+            btn.heightAnchor.constraint(equalToConstant: 36).isActive = true
+            btn.widthAnchor.constraint(equalTo: btn.heightAnchor).isActive = true
+            btn.layer.cornerRadius = 18
+            btn.imageView?.tintColor = .white
+        return btn
     }()
     
     var productName: UILabel = {
@@ -60,7 +71,7 @@ class AddProductToStorageView: UIView {
     
     let productNameTextField: UITextView = {
             let txt = UITextView()
-                txt.text = "Placeholder"
+                txt.text = ""
                 txt.heightAnchor.constraint(equalToConstant: 25).isActive = true
                 txt.backgroundColor = .white
                 txt.textColor = .black
@@ -73,7 +84,7 @@ class AddProductToStorageView: UIView {
                 txt.heightAnchor.constraint(equalToConstant: 25).isActive = true
                 txt.backgroundColor = .white
                 txt.textColor = .black
-                txt.text = "Placeholder"
+                txt.text = ""
                 txt.layer.cornerRadius = 5
                 txt.keyboardType = .numberPad
             return txt
@@ -83,7 +94,7 @@ class AddProductToStorageView: UIView {
                 txt.heightAnchor.constraint(equalToConstant: 25).isActive = true
                 txt.backgroundColor = .white
                 txt.textColor = .black
-                txt.text = "Placeholder"
+                txt.text = ""
                 txt.layer.cornerRadius = 5
                 txt.keyboardType = .decimalPad
             return txt
@@ -93,7 +104,7 @@ class AddProductToStorageView: UIView {
                 txt.heightAnchor.constraint(equalToConstant: 25).isActive = true
                 txt.backgroundColor = .white
                 txt.textColor = .black
-                txt.text = "Placeholder"
+                txt.text = ""
                 txt.layer.cornerRadius = 5
             txt.keyboardType = .decimalPad
 
@@ -125,6 +136,11 @@ class AddProductToStorageView: UIView {
         productImage.translatesAutoresizingMaskIntoConstraints = false
         productImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         productImage.topAnchor.constraint(equalTo: bgView.topAnchor, constant: 10).isActive = true
+        
+        addSubview(productImageButton)
+        productImageButton.translatesAutoresizingMaskIntoConstraints = false
+        productImageButton.bottomAnchor.constraint(equalTo: productImage.bottomAnchor, constant: -4).isActive = true
+        productImageButton.rightAnchor.constraint(equalTo: productImage.rightAnchor).isActive = true
         
         addSubview(productName)
         productName.translatesAutoresizingMaskIntoConstraints = false

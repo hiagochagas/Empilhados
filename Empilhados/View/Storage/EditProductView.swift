@@ -31,6 +31,17 @@ class EditProductView: UIView {
         return img
     }()
     
+    var productImageButton: UIButton = {
+        let btn = UIButton()
+            btn.setImage(UIImage(systemName: "camera.fill"), for: .normal)
+            btn.backgroundColor = .black
+            btn.heightAnchor.constraint(equalToConstant: 36).isActive = true
+            btn.widthAnchor.constraint(equalTo: btn.heightAnchor).isActive = true
+            btn.layer.cornerRadius = 18
+            btn.imageView?.tintColor = .white
+        return btn
+    }()
+    
     var productName: UILabel = {
         let lbl = UILabel()
             lbl.textColor = .white
@@ -113,11 +124,15 @@ class EditProductView: UIView {
         bgView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -16).isActive = true
         bgView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
-        
         addSubview(productImage)
         productImage.translatesAutoresizingMaskIntoConstraints = false
         productImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         productImage.topAnchor.constraint(equalTo: bgView.topAnchor, constant: 10).isActive = true
+        
+        addSubview(productImageButton)
+        productImageButton.translatesAutoresizingMaskIntoConstraints = false
+        productImageButton.bottomAnchor.constraint(equalTo: productImage.bottomAnchor, constant: -4).isActive = true
+        productImageButton.rightAnchor.constraint(equalTo: productImage.rightAnchor).isActive = true
         
         addSubview(productName)
         productName.translatesAutoresizingMaskIntoConstraints = false

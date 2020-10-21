@@ -8,7 +8,7 @@
 import UIKit
 
 
-class EditProductVC: UIViewController, UITextViewDelegate {
+class EditProductVC: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     let editProductView = EditProductView()
     var indexPath: IndexPath? = nil
     weak var delegate: UpdateDataFromProductDelegate?
@@ -19,7 +19,23 @@ class EditProductVC: UIViewController, UITextViewDelegate {
         editProductView.productNameTextField.delegate = self
         editProductView.productQuantityTextField.delegate = self
         editProductView.productSellPriceTextField.delegate = self
+        editProductView.productImageButton.addTarget(self, action: #selector(cameraButtonPressed), for: .touchUpInside)
         self.view = editProductView
+    }
+    
+    @objc func cameraButtonPressed(){
+        let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.allowsEditing = true
+            picker.sourceType = .photoLibrary
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let userPickedImage = info[.editedImage] as? UIImage else { return }
+            editProductView.productImage.image = userPickedImage
+            delegate?.updateImage(indexPath!, image: userPickedImage)
+            picker.dismiss(animated: true)
     }
 
 }
