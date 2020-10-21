@@ -22,10 +22,8 @@ class AddProductToStorageVC: UIViewController {
         newProduct.name = addProductView.productNameTextField.text
         let newProductQuantity = Int(addProductView.productQuantityTextField.text)
         newProduct.quantity = Int64(newProductQuantity ?? 0)
-        let newProductBuyPrice = Int(addProductView.productBuyPriceTextField.text)
-        newProduct.buyPrice = (newProductBuyPrice) as? NSDecimalNumber
-        let newProductSellPrice = Int(addProductView.productSellPriceTextField.text)
-        newProduct.sellPrice = newProductSellPrice as? NSDecimalNumber
+        newProduct.buyPrice = NSDecimalNumber(string: addProductView.productBuyPriceTextField.text)
+        newProduct.sellPrice = NSDecimalNumber(string: addProductView.productSellPriceTextField.text)
         do{
             try self.context.save()
         } catch {

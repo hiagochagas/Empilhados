@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StorageVC: UIViewController, RefreshDataFromTableDelegate {
+class StorageVC: UIViewController, RefreshDataFromTableDelegate, UpdateDataFromProductDelegate {
     let storageView = StorageView()
     let context = AppDelegate.viewContext
     var products: [Product]?
@@ -23,6 +23,42 @@ class StorageVC: UIViewController, RefreshDataFromTableDelegate {
     func fetchProducts() {
         self.products = Product.fetchAll(viewContext: context)
         storageView.tableView.reloadData()
+    }
+    
+    func updateName(_ indexPath: IndexPath, name: String) {
+        let updatedProduct = products![indexPath.row]
+        updatedProduct.name = name
+        saveContext()
+        fetchProducts()
+    }
+    
+    func updateQuantity(_ indexPath: IndexPath, quantity: String) {
+        let updatedProduct = products![indexPath.row]
+        updatedProduct.quantity = Int64(quantity) ?? 0
+        saveContext()
+        fetchProducts()
+    }
+    
+    func updateBuyPrice(_ indexPath: IndexPath, buyPrice: String) {
+        let updatedProduct = products![indexPath.row]
+        updatedProduct.buyPrice = NSDecimalNumber(string: buyPrice)
+        saveContext()
+        fetchProducts()
+    }
+    
+    func updateSellPrice(_ indexPath: IndexPath, sellPrice: String) {
+        let updatedProduct = products![indexPath.row]
+        updatedProduct.sellPrice = NSDecimalNumber(string: sellPrice)
+        saveContext()
+        fetchProducts()
+    }
+    
+    func saveContext() {
+        do {
+            try self.context.save()
+        } catch {
+            print("You got the \(error) error when deleting from table view")
+        }
     }
     
     @objc func addProduct(){
@@ -57,13 +93,21 @@ extension StorageVC: UITableViewDelegate, UITableViewDataSource {
         let productToRemove = products![indexPath.row]
         if editingStyle == .delete {
             self.context.delete(productToRemove)
-            do {
-                try self.context.save()
-            } catch {
-                print("You got the \(error) error when deleting from table view")
-            }
+            saveContext()
             self.fetchProducts()
         }
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let product = products![indexPath.row]
+        let vc = EditProductVC()
+            vc.delegate = self
+            vc.indexPath = indexPath
+            vc.title = "Editar Produto"
+            vc.editProductView.productNameTextField.text = product.name
+            vc.editProductView.productQuantityTextField.text = String(describing: product.quantity)
+            vc.editProductView.productBuyPriceTextField.text = String(describing: product.buyPrice ?? 0)
+            vc.editProductView.productSellPriceTextField.text = String(describing: product.sellPrice ?? 0)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }

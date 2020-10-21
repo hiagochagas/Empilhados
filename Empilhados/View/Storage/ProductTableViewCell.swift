@@ -18,7 +18,6 @@ class ProductTableViewCell: UITableViewCell {
                 view.layer.shadowOffset = CGSize(width: 0, height: 1)
                 view.layer.shadowRadius = 2
                 view.layer.cornerRadius = 10
-                
             return view
     }()
     
@@ -51,7 +50,7 @@ class ProductTableViewCell: UITableViewCell {
         addSubview(bgView)
         bgView.translatesAutoresizingMaskIntoConstraints = false
         bgView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        bgView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
+        bgView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         bgView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         bgView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
