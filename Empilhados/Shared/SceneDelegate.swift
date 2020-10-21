@@ -15,7 +15,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let tabBar = TabBarVC()
-            window = UIWindow(frame: UIScreen.main.bounds)
+            
+        window = UIWindow(frame: UIScreen.main.bounds)
+            window?.overrideUserInterfaceStyle = .light
             window?.windowScene = windowScene
             window?.rootViewController = tabBar
             window?.makeKeyAndVisible()

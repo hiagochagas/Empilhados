@@ -8,7 +8,7 @@
 import UIKit
 
 class StorageView: UIView {
-
+    
     let tableView: UITableView = {
         let table = UITableView()
         table.register(ProductTableViewCell.self, forCellReuseIdentifier: "productCell")
@@ -17,17 +17,14 @@ class StorageView: UIView {
         return table
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 16).isActive = true
         tableView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -16).isActive = true
-        tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 64).isActive = true
         tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
         
     }
     

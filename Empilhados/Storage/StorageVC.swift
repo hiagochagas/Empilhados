@@ -16,12 +16,30 @@ class StorageVC: UIViewController, RefreshDataFromTableDelegate, UpdateDataFromP
         storageView.tableView.delegate = self
         storageView.tableView.dataSource = self
         fetchProducts()
-        self.navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .add, target: self, action: #selector(addProduct))
-        self.view = storageView
+        setupNavBar()
     }
     
-    func fetchProducts() {
-        self.products = Product.fetchAll(viewContext: context)
+    func setupNavBar(){
+        self.navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .add, target: self, action: #selector(addProduct))
+        self.view = storageView
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.barStyle = .default
+        navigationController?.navigationBar.barTintColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        let searchBar = UISearchBar()
+            searchBar.placeholder = "Search"
+            searchBar.frame = CGRect(x: 0, y: 0, width: (navigationController?.view.bounds.size.width)!, height: 64)
+            searchBar.barStyle = .default
+            searchBar.isTranslucent = false
+            searchBar.barTintColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
+            searchBar.backgroundImage = UIImage()
+            searchBar.delegate = self
+        view.addSubview(searchBar)
+    }
+    
+    func fetchProducts(_ searchBarArgument: String = "") {
+        self.products = Product.fetchAll(viewContext: context, searchBarArgument: searchBarArgument)
         storageView.tableView.reloadData()
     }
     
@@ -110,4 +128,11 @@ extension StorageVC: UITableViewDelegate, UITableViewDataSource {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+}
+
+extension StorageVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        fetchProducts(searchText)
+        self.storageView.tableView.reloadData()
+    }
 }
