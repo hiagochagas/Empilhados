@@ -34,8 +34,9 @@ class AddProductToStorageView: UIView {
         let btn = UIButton()
             btn.setImage(UIImage(systemName: "camera.fill"), for: .normal)
             btn.backgroundColor = .black
+            btn.translatesAutoresizingMaskIntoConstraints = false
             btn.heightAnchor.constraint(equalToConstant: 36).isActive = true
-            btn.widthAnchor.constraint(equalTo: btn.heightAnchor).isActive = true
+            btn.widthAnchor.constraint(equalToConstant: 36).isActive = true
             btn.layer.cornerRadius = 18
             btn.imageView?.tintColor = .white
         return btn
@@ -115,6 +116,7 @@ class AddProductToStorageView: UIView {
             btn.setTitle("Salvar", for: .normal)
             btn.tintColor = .systemBlue
             btn.backgroundColor = .blue
+            btn.translatesAutoresizingMaskIntoConstraints = false
             btn.heightAnchor.constraint(equalToConstant: 50).isActive = true
             btn.widthAnchor.constraint(equalToConstant: 100).isActive = true
             btn.layer.cornerRadius = 10

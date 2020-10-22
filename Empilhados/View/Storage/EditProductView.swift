@@ -36,7 +36,7 @@ class EditProductView: UIView {
             btn.setImage(UIImage(systemName: "camera.fill"), for: .normal)
             btn.backgroundColor = .black
             btn.heightAnchor.constraint(equalToConstant: 36).isActive = true
-            btn.widthAnchor.constraint(equalTo: btn.heightAnchor).isActive = true
+            btn.widthAnchor.constraint(equalToConstant: 36).isActive = true
             btn.layer.cornerRadius = 18
             btn.imageView?.tintColor = .white
         return btn

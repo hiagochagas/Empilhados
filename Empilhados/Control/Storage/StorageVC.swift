@@ -112,7 +112,7 @@ extension StorageVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath) as! ProductTableViewCell
             cell.productName.text = product.name
             cell.productQuantity.text = "Quantidade disponível: \(String(product.quantity))"
-            cell.productImage.image = UIImage(data: product.image!)
+        cell.productImage.image = UIImage(data: product.image ?? Data())
         return cell
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

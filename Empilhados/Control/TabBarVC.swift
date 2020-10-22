@@ -15,8 +15,11 @@ class TabBarVC: UITabBarController {
        }
        
        func setupTabBar(){
-           let storageNavController = setupVc(rootViewController: StorageVC(), image: UIImage(systemName: "shippingbox.fill")!, title: "Estoque")
-           let deliveryNavController = setupVc(rootViewController: DeliveryVC(), image: UIImage(named: "deliveryTruck")!, title: "Entregas")
+        let storageVC = StorageVC()
+        let deliveryVC = DeliveryVC()
+        deliveryVC.delegate = storageVC
+        let storageNavController = setupVc(rootViewController: storageVC , image: UIImage(systemName: "shippingbox.fill")!, title: "Estoque")
+        let deliveryNavController = setupVc(rootViewController: deliveryVC, image: UIImage(named: "deliveryTruck")!, title: "Entregas")
         viewControllers = [storageNavController, deliveryNavController]
        }
        func setupVc(rootViewController: UIViewController, image: UIImage, title: String) -> UINavigationController{

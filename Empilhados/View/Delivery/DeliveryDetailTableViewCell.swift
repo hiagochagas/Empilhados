@@ -1,13 +1,13 @@
 //
-//  ProductTableViewCell.swift
+//  DeliveryDetailTableViewCell.swift
 //  Empilhados
 //
-//  Created by Hiago Chagas on 20/10/20.
+//  Created by Hiago Chagas on 22/10/20.
 //
 
 import UIKit
 
-class ProductTableViewCell: UITableViewCell {
+class DeliveryDetailTableViewCell: UITableViewCell {
     
     var bgView: UIView = {
             let view = UIView()
@@ -20,30 +20,31 @@ class ProductTableViewCell: UITableViewCell {
                 view.layer.cornerRadius = 10
             return view
     }()
-    
-    var productImage: UIImageView = {
-        let img = UIImageView()
-        img.image = UIImage(named: "standardProduct")
-        img.widthAnchor.constraint(equalTo: img.heightAnchor).isActive = true
-        img.layer.cornerRadius = 10
-        img.layer.masksToBounds = true
-        return img
-    }()
-    
     var productName: UILabel = {
         let lbl = UILabel()
             lbl.textColor = .white
-            lbl.text = "Product Name"
+            lbl.text = "Produto:"
         return lbl
     }()
     
     var productQuantity: UILabel = {
         let lbl = UILabel()
-            lbl.text = "X produtos disponíveis"
+            lbl.textColor = .white
+            lbl.text = "Quantidade:"
+        return lbl
+    }()
+    var productNameLabel: UILabel = {
+        let lbl = UILabel()
             lbl.textColor = .white
         return lbl
-        
     }()
+    
+    var productQuantityLabel: UILabel = {
+        let lbl = UILabel()
+            lbl.textColor = .white
+        return lbl
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
@@ -54,29 +55,30 @@ class ProductTableViewCell: UITableViewCell {
         bgView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
         bgView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
         
-        addSubview(productImage)
-        productImage.translatesAutoresizingMaskIntoConstraints = false
-        productImage.leftAnchor.constraint(equalTo: bgView.leftAnchor, constant: 10).isActive = true
-        productImage.topAnchor.constraint(equalTo: bgView.topAnchor, constant: 10).isActive = true
-        productImage.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: -10).isActive = true
-        
         addSubview(productName)
         productName.translatesAutoresizingMaskIntoConstraints = false
-        productName.leftAnchor.constraint(equalTo: productImage.rightAnchor, constant: 10).isActive = true
+        productName.leftAnchor.constraint(equalTo: bgView.leftAnchor, constant: 10).isActive = true
         productName.topAnchor.constraint(equalTo: bgView.topAnchor, constant: 10).isActive = true
-        productName.rightAnchor.constraint(equalTo: bgView.rightAnchor, constant: -10).isActive = true
         
         addSubview(productQuantity)
         productQuantity.translatesAutoresizingMaskIntoConstraints = false
-        productQuantity.leftAnchor.constraint(equalTo: productImage.rightAnchor, constant: 10).isActive = true
         productQuantity.rightAnchor.constraint(equalTo: bgView.rightAnchor, constant: -10).isActive = true
-        productQuantity.topAnchor.constraint(equalTo: productName.bottomAnchor, constant: 10).isActive = true
+        productQuantity.topAnchor.constraint(equalTo: bgView.topAnchor, constant: 10).isActive = true
+        
+        addSubview(productNameLabel)
+        productNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        productNameLabel.leftAnchor.constraint(equalTo: productName.leftAnchor).isActive = true
+        productNameLabel.topAnchor.constraint(equalTo: productName.bottomAnchor, constant: 5).isActive = true
+        
+        addSubview(productQuantityLabel)
+        productQuantityLabel.translatesAutoresizingMaskIntoConstraints = false
+        productQuantityLabel.rightAnchor.constraint(equalTo: productQuantity.rightAnchor).isActive = true
+        productQuantityLabel.topAnchor.constraint(equalTo: productQuantity.bottomAnchor, constant: 5).isActive = true
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
